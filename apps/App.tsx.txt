@@ -1,0 +1,49 @@
+import { useState } from 'react'
+import { HubColoc } from './components/agents/hub-coloc/HubColoc'
+
+// ... garde liste agents ...
+
+function App() {
+  const [selected, setSelected] = useState<string | null>(null)
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      {/* ... garde header ... */}
+
+      <main className="max-w-7xl mx-auto py-8 px-4">
+        {!selected && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* ... garde grille agents ... */}
+          </div>
+        )}
+
+        {selected === 'hub-coloc' && (
+          <div>
+            <button
+              onClick={() => setSelected(null)}
+              className="mb-4 text-blue-600 hover:text-blue-700"
+            >
+              ← Retour
+            </button>
+            <HubColoc />
+          </div>
+        )}
+
+        {selected && selected !== 'hub-coloc' && (
+          <div className="bg-white p-6 rounded-xl shadow-lg">
+            <h2 className="text-2xl font-bold mb-4">
+              {agents.find(a => a.id === selected)?.name}
+            </h2>
+            <p className="text-gray-600 mb-4">Interface en construction...</p>
+            <button
+              onClick={() => setSelected(null)}
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+            >
+              Fermer
+            </button>
+          </div>
+        )}
+      </main>
+    </div>
+  )
+}
