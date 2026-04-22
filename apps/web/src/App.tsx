@@ -1,5 +1,6 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { HubColoc } from './components/agents/hub-coloc/HubColoc'
+import { Meditrad } from './components/agents/meditrad/Meditrad'
 import { LoginModal } from './components/auth/LoginModal'
 import { useAuth } from './components/auth/AuthProvider'
 
@@ -74,26 +75,27 @@ function App() {
 
         {selected === 'hub-coloc' && (
           <div>
-            <button
-              onClick={() => setSelected(null)}
-              className='mb-4 text-blue-600 hover:text-blue-700 font-semibold'
-            >
+            <button onClick={() => setSelected(null)} className='mb-4 text-blue-600 hover:text-blue-700 font-semibold'>
               ← Retour
             </button>
             <HubColoc />
           </div>
         )}
 
-        {selected && selected !== 'hub-coloc' && (
+        {selected === 'meditrad' && (
+          <div>
+            <button onClick={() => setSelected(null)} className='mb-4 text-blue-600 hover:text-blue-700 font-semibold'>
+              ← Retour
+            </button>
+            <Meditrad />
+          </div>
+        )}
+
+        {selected && selected !== 'hub-coloc' && selected !== 'meditrad' && (
           <div className='bg-white p-6 rounded-xl shadow-lg'>
-            <h2 className='text-2xl font-bold mb-4'>
-              {agents.find(a => a.id === selected)?.name}
-            </h2>
+            <h2 className='text-2xl font-bold mb-4'>{agents.find(a => a.id === selected)?.name}</h2>
             <p className='text-gray-600 mb-4'>Interface en construction...</p>
-            <button
-              onClick={() => setSelected(null)}
-              className='bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700'
-            >
+            <button onClick={() => setSelected(null)} className='bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700'>
               Fermer
             </button>
           </div>

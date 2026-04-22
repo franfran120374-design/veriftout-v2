@@ -3,6 +3,7 @@ cd C:\Users\Admin\Documents\veriftout-v2\apps\web\src
 @"
 import { useState } from 'react'
 import { HubColoc } from './components/agents/hub-coloc/HubColoc'
+import { Meditrad } from './components/agents/meditrad/Meditrad'
 import { LoginModal } from './components/auth/LoginModal'
 import { useAuth } from './components/auth/AuthProvider'
 
