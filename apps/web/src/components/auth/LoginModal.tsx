@@ -20,7 +20,16 @@ export function LoginModal({ onClose }: { onClose: () => void }) {
       }
       onClose();
     } catch (err: any) {
-      setError(err.message);
+      // Traduction erreurs Firebase
+      const errorMessages: Record<string, string> = {
+        'auth/email-already-in-use': 'Cet email est déjà utilisé',
+        'auth/invalid-email': 'Email invalide',
+        'auth/weak-password': 'Mot de passe trop faible (min 6 caractères)',
+        'auth/user-not-found': 'Utilisateur introuvable',
+        'auth/wrong-password': 'Mot de passe incorrect',
+        'auth/configuration-not-found': 'Email/Password pas activé dans Firebase Console'
+      };
+      setError(errorMessages[err.code] || err.message);
     }
   };
 
@@ -49,11 +58,12 @@ export function LoginModal({ onClose }: { onClose: () => void }) {
           
           <input
             type='password'
-            placeholder='Mot de passe'
+            placeholder='Mot de passe (min 6 caractères)'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className='w-full px-4 py-2 border rounded-lg'
             required
+            minLength={6}
           />
 
           <button
@@ -68,7 +78,7 @@ export function LoginModal({ onClose }: { onClose: () => void }) {
           onClick={() => setIsLogin(!isLogin)}
           className='w-full mt-4 text-blue-600 hover:text-blue-700'
         >
-          {isLogin ? 'Créer un compte' : 'Déjà un compte ?'}
+          {isLogin ? 'Pas encore de compte ? Créer un compte' : 'Déjà un compte ? Se connecter'}
         </button>
 
         <button
